@@ -1,0 +1,22 @@
+curl 'https://twitter.com/i/api/graphql/VgitpdpNZ-RUIp5D1Z_D-A/UserTweets?variables=%7B%22userId%22%3A%222693415903%22%2C%22count%22%3A20%2C%22includePromotedContent%22%3Atrue%2C%22withQuickPromoteEligibilityTweetFields%22%3Atrue%2C%22withVoice%22%3Atrue%2C%22withV2Timeline%22%3Atrue%7D&features=%7B%22responsive_web_graphql_exclude_directive_enabled%22%3Atrue%2C%22verified_phone_label_enabled%22%3Afalse%2C%22responsive_web_home_pinned_timelines_enabled%22%3Atrue%2C%22creator_subscriptions_tweet_preview_api_enabled%22%3Atrue%2C%22responsive_web_graphql_timeline_navigation_enabled%22%3Atrue%2C%22responsive_web_graphql_skip_user_profile_image_extensions_enabled%22%3Afalse%2C%22c9s_tweet_anatomy_moderator_badge_enabled%22%3Atrue%2C%22tweetypie_unmention_optimization_enabled%22%3Atrue%2C%22responsive_web_edit_tweet_api_enabled%22%3Atrue%2C%22graphql_is_translatable_rweb_tweet_is_translatable_enabled%22%3Atrue%2C%22view_counts_everywhere_api_enabled%22%3Atrue%2C%22longform_notetweets_consumption_enabled%22%3Atrue%2C%22responsive_web_twitter_article_tweet_consumption_enabled%22%3Afalse%2C%22tweet_awards_web_tipping_enabled%22%3Afalse%2C%22freedom_of_speech_not_reach_fetch_enabled%22%3Atrue%2C%22standardized_nudges_misinfo%22%3Atrue%2C%22tweet_with_visibility_results_prefer_gql_limited_actions_policy_enabled%22%3Atrue%2C%22longform_notetweets_rich_text_read_enabled%22%3Atrue%2C%22longform_notetweets_inline_media_enabled%22%3Atrue%2C%22responsive_web_media_download_video_enabled%22%3Afalse%2C%22responsive_web_enhance_cards_enabled%22%3Afalse%7D' \
+  -H 'authority: twitter.com' \
+  -H 'accept: */*' \
+  -H 'accept-language: en-US,en;q=0.9' \
+  -H 'authorization: Bearer ***REMOVED***' \
+  -H 'content-type: application/json' \
+  -H 'cookie: _ga=GA1.2.1516747026.1700257313; _gid=GA1.2.384391922.1700257313; guest_id=v1%3A170025731328715985; _twitter_sess=BAh7CSIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%250ASGFzaHsABjoKQHVzZWR7ADoPY3JlYXRlZF9hdGwrCGW7O9%252BLAToMY3NyZl9p%250AZCIlMDgwMmFjMTU0ZmJjNDJiM2Y5ZTcwNjYyZDMzYjdhY2E6B2lkIiVkY2Qy%250AYmUxM2JkMDMxODU4YzZlODk3Y2RiZmRlMTAwMw%253D%253D--5f2904f6c9f2d0a1b3f164574c9061c6eb913821; kdt=IvRhczUxIttZZxeD91D1kMq3g3eBZkSAYgRGgaD7; auth_token=ae3fcf71d1d450cc2bcd271eea70b0140c024cb6; ct0=a6c4ad6ac22cdafb75c9b5165389533f59a6b0bbe8a4648859036e38eecd108076e15b4b476a8167de9516f0974a95d6e31d436084f790b471b16592d6827a98c6546f7b2b1465d6677eab26eb25d0ed; att=1-KZ219hVs1tUWvfDG6d41QU5YJq7DuU8L6uGgXAPc; guest_id_ads=v1%3A170025731328715985; guest_id_marketing=v1%3A170025731328715985; lang=en; twid=u%3D767620711414456320; personalization_id="v1_lqW2OBhAuBjxOxjC6sW4yw=="' \
+  -H 'referer: https://twitter.com/_bubblyabby_' \
+  -H 'sec-ch-ua: "Google Chrome";v="119", "Chromium";v="119", "Not?A_Brand";v="24"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "macOS"' \
+  -H 'sec-fetch-dest: empty' \
+  -H 'sec-fetch-mode: cors' \
+  -H 'sec-fetch-site: same-origin' \
+  -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36' \
+  -H 'x-client-transaction-id: gqWBWH5SzZBeyU8pov70kRhkZwUM8MKxgC20/9C6eJ8dzP0bnUS5Q0KLr/ktV8ktLOcFioNSgzo3frm3mpWWmWVu1fNWgw' \
+  -H 'x-client-uuid: 089d796a-50ee-4e30-a9ee-e06452004b4c' \
+  -H 'x-csrf-token: a6c4ad6ac22cdafb75c9b5165389533f59a6b0bbe8a4648859036e38eecd108076e15b4b476a8167de9516f0974a95d6e31d436084f790b471b16592d6827a98c6546f7b2b1465d6677eab26eb25d0ed' \
+  -H 'x-twitter-active-user: yes' \
+  -H 'x-twitter-auth-type: OAuth2Session' \
+  -H 'x-twitter-client-language: en' \
+  --compressed
