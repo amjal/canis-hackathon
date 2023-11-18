@@ -1,0 +1,40 @@
+{
+  "data": {
+    "user": {
+      "result": {
+        "__typename": "User",
+        "timeline": {
+          "timeline": {
+            "instructions": [
+              {
+                "type": "TimelineAddEntries",
+                "entries": [
+                  {
+                    "entryId": "cursor-bottom-1725704810633625236",
+                    "sortIndex": "1725704810633625236",
+                    "content": {
+                      "entryType": "TimelineTimelineCursor",
+                      "__typename": "TimelineTimelineCursor",
+                      "value": "0|1725704810633625234",
+                      "cursorType": "Bottom"
+                    }
+                  },
+                  {
+                    "entryId": "cursor-top-1725704810633625237",
+                    "sortIndex": "1725704810633625237",
+                    "content": {
+                      "entryType": "TimelineTimelineCursor",
+                      "__typename": "TimelineTimelineCursor",
+                      "value": "-1|1725704810633625237",
+                      "cursorType": "Top"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}
