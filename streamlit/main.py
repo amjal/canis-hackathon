@@ -1,5 +1,5 @@
 import sys
-sys.path.append('..')
+sys.path.append('../python_scripts')
 import PlotlyAgent
 import WikiGraph
 import streamlit as st
@@ -13,7 +13,7 @@ st.title("Streamlit App with Plotly Plot")
 st.sidebar.title("Navigation")
 option = st.sidebar.selectbox(
 	"Choose a page:",
-	("Home", "Plotly Plot", "Another Page")
+	("Home", "Plotly Plot", "Wiki Network Graph")
 )
 
 
@@ -31,5 +31,3 @@ elif option == "Wiki Network Graph":
 	networx_agent = WikiGraph.Agent()
 	graph = networx_agent.plot_network_graph()
 	st.components.v1.html(graph, height=800, width=800, scrolling=True)
-	
-

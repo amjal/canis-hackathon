@@ -4,16 +4,17 @@ import time
 
 import requests
 
-from twitter import priorities
+import priorities
 
 url = 'https://twitter.com/i/api/graphql/G3KGOASz96M-Qu0nwmGXNg/UserByScreenName'
+
 headers = {
     'authority': 'twitter.com',
     'accept': '*/*',
     'accept-language': 'en-US,en;q=0.9,fa;q=0.8',
     'authorization': 'Bearer ***REMOVED***',
     'content-type': 'application/json',
-    'cookie': '_ga=GA1.2.880126000.1691779904; lang=en; guest_id=v1%3A169998054129071930; g_state={"i_p":1699987747887,"i_l":1}; _twitter_sess=BAh7CSIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%250ASGFzaHsABjoKQHVzZWR7ADoPY3JlYXRlZF9hdGwrCGudvM6LAToMY3NyZl9p%250AZCIlNzQ2Mzg4ZTM5ODYzOTAxY2I3ZWM2YjRjNTRkYWQ1YTE6B2lkIiUyN2Uy%250ANjE3MzIzZmY0OTYzNDNhNDY5MTMwMDdkYTY5MQ%253D%253D--3cf6a17c9d77e47d3bc3731964da5b89ff7de02d; kdt=UANhrHFuDXkxjTcjAOgq9DIF5QLSJdxD1OElHybR; auth_token=5cd2e6077966875d663293e4101b96fbedb5818b; ct0=6c9a01b4537405170d2ce35ebc721e389bc72ecf9266643694b5048791bb8ca62767c6f0c99960e26b92a810ae2bea1e6c20f2773d2ad79bcfca3854b2b29b719ba337b1d7aba2f74ec5d217bccefa9c; guest_id_ads=v1%3A169998054129071930; guest_id_marketing=v1%3A169998054129071930; twid=u%3D767620711414456320; night_mode=1; external_referer=8e8t2xd8A2w%3D|0|Row7tAmsAfIEmjPNOVSmwU7WBxyUUJED%2FJi%2FFP0ccJQLMXwElqvDBJpHIUJZymRK; _gid=GA1.2.1404017273.1700157076; personalization_id="v1_Nncd/7EOq1XD3iTJ4IPDFg=="',
+    'cookie': 'guest_id=v1%3A167350876100677622; g_state={"i_l":0}; kdt=xxgDTka3gPA9K52pGpzLqIyTVhLSkzbbCCi9LrGB; lang=en; auth_token=6082046d8211db8cfee616c4cde5e47d37240dc2; twid=u%3D4717658005; d_prefs=MToxLGNvbnNlbnRfdmVyc2lvbjoyLHRleHRfdmVyc2lvbjoxMDAw; guest_id_ads=v1%3A167350876100677622; guest_id_marketing=v1%3A167350876100677622; _ga=GA1.2.1608448632.1685820982; _twitter_sess=BAh7CSIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%250ASGFzaHsABjoKQHVzZWR7ADoPY3JlYXRlZF9hdGwrCPr64AqKAToMY3NyZl9p%250AZCIlYTFmMjY2ZGZhNTEwZGFkMDVmY2IyMDc4Nzc3M2UyNTA6B2lkIiU1MjI2%250AYTg0YzY4NDE0OTIxYTBjNWUxNDk4MTI1NzEzNA%253D%253D--78dc5e27db9695fe3633744e0069af8c76e31f48; _gid=GA1.2.2124721875.1699936592; amp_6e403e=R8o1-v5YjN-agALg1Wiuqz...1hf61rot4.1hf61rot4.0.0.0; external_referer=padhuUp37zhoIGvF4Apzqg16MfI8H6yPtDDLSRhJjFDoN8U3lRYvbg%3D%3D|0|8e8t2xd8A2w%3D; ct0=61f0daef94373e3a527f51d416f51818335bd50dc51ffab6a3f9e5f33b40ad519c84fdf43438bcf92784a7fd6d62c6b855f93f8a829f2b749ee7a40887f384bb9e42cc404865a8cb7f149975867817fe; personalization_id="v1_KAWK/rvpfCeWooUGySFWpQ=="',
     'referer': 'https://twitter.com/Zhou_Li_CHN',
     'sec-ch-ua': '"Google Chrome";v="119", "Chromium";v="119", "Not?A_Brand";v="24"',
     'sec-ch-ua-mobile': '?0',
@@ -23,7 +24,7 @@ headers = {
     'sec-fetch-site': 'same-origin',
     'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36',
     'x-client-transaction-id': 'mepvdEj48PGrv2nkzYYsI6vWn5jUNa0g8ZeafmEe7fLilDEjVv2tABZ3W6UVelJDST02kZhGezldMaxaIhPFhhsXZtZimA',
-    'x-csrf-token': '6c9a01b4537405170d2ce35ebc721e389bc72ecf9266643694b5048791bb8ca62767c6f0c99960e26b92a810ae2bea1e6c20f2773d2ad79bcfca3854b2b29b719ba337b1d7aba2f74ec5d217bccefa9c',
+    'x-csrf-token': '61f0daef94373e3a527f51d416f51818335bd50dc51ffab6a3f9e5f33b40ad519c84fdf43438bcf92784a7fd6d62c6b855f93f8a829f2b749ee7a40887f384bb9e42cc404865a8cb7f149975867817fe',
     'x-twitter-active-user': 'yes',
     'x-twitter-auth-type': 'OAuth2Session',
     'x-twitter-client-language': 'en',
@@ -52,7 +53,7 @@ field_toggles = {
 
 rest_map = {}
 
-for index, user in enumerate(priorities.A):
+for index, user in enumerate(priorities.B):
     variables["screen_name"] = user
     payload = {
         "variables": json.dumps(variables),
@@ -62,7 +63,7 @@ for index, user in enumerate(priorities.A):
 
     print(f"{index + 1}/{len(priorities.A)} Crawling for {user}")
     try:
-        file_name = f"users/{user}.json"
+        file_name = f"twitter/users/{user}.json"
         if os.path.exists(file_name):
             print("\talready existed")
             continue
@@ -75,9 +76,10 @@ for index, user in enumerate(priorities.A):
         f.flush()
         f.close()
     except Exception as ex:
+        print(ex)
         print("\tfailed to fetch")
 
-    time.sleep(5)
+    time.sleep(3)
 
 print("---------------------------------------------------")
 print(rest_map)

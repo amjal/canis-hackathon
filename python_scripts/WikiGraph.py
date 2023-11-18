@@ -10,7 +10,7 @@ import matplotlib
 class Agent:
     def plot_network_graph(self):
         # Sample DataFrame
-        df = pd.read_csv('data/wiki_category_network.csv')
+        df = pd.read_csv('../data/wiki_category_network.csv')
 
         # Initialize a directed graph
         G = nx.from_pandas_edgelist(df, 'title', 'category', create_using=nx.DiGraph())

@@ -99,7 +99,7 @@ def fetch_following_page(user, user_id, page=1, cursor=None):
     return cursor
 
 
-users = priorities.A[:]
+users = priorities.B[:]
 index = int(sys.argv[1])
 
 user = users[index]
