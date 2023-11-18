@@ -67,7 +67,7 @@ users = [
     "BeautyJiangxi",
     "cgtnrussian",
     "AndyBxxx",
-    "CRI_Turkish",
+    "CRI_Turkish",  # 404
     "AmbChenWeiqing",
     "thisisGBA",
     "WanmingYang",
@@ -126,7 +126,7 @@ users = [
     "JilinChina",
     "ZichenWanghere",
     "YoloOliver1",
-    "Frontlinestory",
+    "Frontlinestory",  # 404
     "ChinaEmbKabul",
     "ChinaEmbEsp",
     "ChineseEmbinRus",
@@ -145,7 +145,7 @@ users = [
     "CRIjpn",
     "thepapercn",
     "BeijingDiscover",
-    "WangGuanBeijing",
+    "WangGuanBeijing",  # 404
     "criarabic",
     "ChnConsul_osaka",
     "theserenadong",
@@ -626,7 +626,7 @@ field_toggles = {
 
 rest_map = {}
 
-for index, user in enumerate(users):
+for index, user in enumerate(users[156:]):
     variables["screen_name"] = user
     payload = {
         "variables": json.dumps(variables),
@@ -634,15 +634,18 @@ for index, user in enumerate(users):
         "fieldToggles": json.dumps(field_toggles)
     }
 
-    print(f"{index + 1}/{len(users)} Crawling for {user}")
-    response = requests.get(url, headers=headers, params=payload)
-    data = response.json()
-    rest_map[user] = data["data"]["user"]["result"]["rest_id"]
+    print(f"{index + 1 + 156}/{len(users)} Crawling for {user}")
+    try:
+        response = requests.get(url, headers=headers, params=payload)
+        data = response.json()
+        rest_map[user] = data["data"]["user"]["result"]["rest_id"]
 
-    f = open(f"users/{user}.json", "w")
-    f.write(json.dumps(data))
-    f.flush()
-    f.close()
+        f = open(f"users/{user}.json", "w")
+        f.write(json.dumps(data))
+        f.flush()
+        f.close()
+    except Exception as ex:
+        print("\tfailed to fetch")
 
     time.sleep(2)
 
