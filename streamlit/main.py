@@ -1,6 +1,7 @@
 import sys
-sys.path.append('../python_scripts/')
+sys.path.append('..')
 import PlotlyAgent
+import WikiGraph
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
@@ -25,6 +26,10 @@ elif option == "Plotly Plot":
 	# Call the function to create and display the Plotly plot
 	fig = plotly_agent.plot_3d_heat('Entity owner (English)', 'Region of Focus', 10)
 	st.plotly_chart(fig)
-elif option == "Another Page":
-	st.write("Welcome to Another Page")
+elif option == "Wiki Network Graph":
+	st.write("Wiki Network Graph")
+	networx_agent = WikiGraph.Agent()
+	graph = networx_agent.plot_network_graph()
+	st.components.v1.html(graph, height=800, width=800, scrolling=True)
+	
 
