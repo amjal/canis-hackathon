@@ -1,11 +1,18 @@
 import json
 import os
+import random
+import sys
 import time
 
 import requests
 
-from twitter import priorities
+# from twitter
+import priorities
 
+# from twitter.csrf import get_csrf
+
+csrf_counter = 1
+entries_cnt = 0
 url = 'https://twitter.com/i/api/graphql/8cyc0OKedV_XD62fBjzxUw/Following'
 
 headers = {
@@ -14,7 +21,7 @@ headers = {
     'accept-language': 'en-US,en;q=0.9,fa;q=0.8',
     'authorization': 'Bearer ***REMOVED***',
     'content-type': 'application/json',
-    'cookie': '_ga=GA1.2.880126000.1691779904; lang=en; guest_id=v1%3A169998054129071930; g_state={"i_p":1699987747887,"i_l":1}; _twitter_sess=BAh7CSIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%250ASGFzaHsABjoKQHVzZWR7ADoPY3JlYXRlZF9hdGwrCGudvM6LAToMY3NyZl9p%250AZCIlNzQ2Mzg4ZTM5ODYzOTAxY2I3ZWM2YjRjNTRkYWQ1YTE6B2lkIiUyN2Uy%250ANjE3MzIzZmY0OTYzNDNhNDY5MTMwMDdkYTY5MQ%253D%253D--3cf6a17c9d77e47d3bc3731964da5b89ff7de02d; kdt=UANhrHFuDXkxjTcjAOgq9DIF5QLSJdxD1OElHybR; auth_token=5cd2e6077966875d663293e4101b96fbedb5818b; ct0=6c9a01b4537405170d2ce35ebc721e389bc72ecf9266643694b5048791bb8ca62767c6f0c99960e26b92a810ae2bea1e6c20f2773d2ad79bcfca3854b2b29b719ba337b1d7aba2f74ec5d217bccefa9c; guest_id_ads=v1%3A169998054129071930; guest_id_marketing=v1%3A169998054129071930; twid=u%3D767620711414456320; night_mode=1; _gid=GA1.2.1404017273.1700157076; external_referer=8e8t2xd8A2w%3D|0|S38otfNfzYt86Dak8Eqj76tqscUAnK6Lq4vYdCl5zxIvK6QAA8vRkA%3D%3D; personalization_id="v1_ANpSW3bOa9K3GJ5d0599tw=="',
+    'cookie': '_ga=GA1.2.880126000.1691779904; lang=en; guest_id=v1%3A169998054129071930; g_state={"i_p":1699987747887,"i_l":1}; _twitter_sess=BAh7CSIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%250ASGFzaHsABjoKQHVzZWR7ADoPY3JlYXRlZF9hdGwrCGudvM6LAToMY3NyZl9p%250AZCIlNzQ2Mzg4ZTM5ODYzOTAxY2I3ZWM2YjRjNTRkYWQ1YTE6B2lkIiUyN2Uy%250ANjE3MzIzZmY0OTYzNDNhNDY5MTMwMDdkYTY5MQ%253D%253D--3cf6a17c9d77e47d3bc3731964da5b89ff7de02d; kdt=UANhrHFuDXkxjTcjAOgq9DIF5QLSJdxD1OElHybR; auth_token=5cd2e6077966875d663293e4101b96fbedb5818b; guest_id_ads=v1%3A169998054129071930; guest_id_marketing=v1%3A169998054129071930; twid=u%3D767620711414456320; night_mode=1; _gid=GA1.2.1404017273.1700157076; external_referer=8e8t2xd8A2w%3D|0|S38otfNfzYt86Dak8Eqj76tqscUAnK6Lq4vYdCl5zxIvK6QAA8vRkA%3D%3D; personalization_id="v1_ZvzweLlSDUIk0+Mbg7mCzw=="; ct0=012b4da978acb746321d790e49f1833c9cfcd23491669aae749aa99b16afa23f4f57d94680adea1e3b30431994975fd0adae6bb42bc874e4adb80d8b1453336f269dbb8c790ef1aca67ccf69fa23bd63',
     'referer': 'https://twitter.com/CGTNOfficial/following',
     'sec-ch-ua': '"Google Chrome";v="119", "Chromium";v="119", "Not?A_Brand";v="24"',
     'sec-ch-ua-mobile': '?0',
@@ -24,7 +31,7 @@ headers = {
     'sec-fetch-site': 'same-origin',
     'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36',
     'x-client-transaction-id': 'gZgAfoFmEHPWvZX8xnRjarX9eUStbO03b3MOhcOH0xfpkkKWPP9bVMVE9NKoJ6MFOxA+iYCg2m3hpj5MwTu83hmGkap3gA',
-    'x-csrf-token': '6c9a01b4537405170d2ce35ebc721e389bc72ecf9266643694b5048791bb8ca62767c6f0c99960e26b92a810ae2bea1e6c20f2773d2ad79bcfca3854b2b29b719ba337b1d7aba2f74ec5d217bccefa9c',
+    'x-csrf-token': '012b4da978acb746321d790e49f1833c9cfcd23491669aae749aa99b16afa23f4f57d94680adea1e3b30431994975fd0adae6bb42bc874e4adb80d8b1453336f269dbb8c790ef1aca67ccf69fa23bd63',
     'x-twitter-active-user': 'yes',
     'x-twitter-auth-type': 'OAuth2Session',
     'x-twitter-client-language': 'en',
@@ -61,7 +68,8 @@ features = {
 }
 
 
-def fetch_following_page(user_id, page=1, cursor=None):
+def fetch_following_page(user, user_id, page=1, cursor=None):
+    global csrf_counter, entries_cnt
     variables["userId"] = user_id
     if cursor is not None:
         variables["cursor"] = cursor
@@ -80,26 +88,45 @@ def fetch_following_page(user_id, page=1, cursor=None):
     instructions = data["data"]["user"]["result"]["timeline"]["timeline"]["instructions"]
     entries = list(filter(lambda x: x["type"] == "TimelineAddEntries", instructions))[0]["entries"]
     cursor = list(filter(lambda x: "cursor-bottom" in x["entryId"], entries))[0]["content"]["value"]
-    print(f"\tfetched page {page} with {len(entries)} items")
+    entries_curr = len(entries) - 2
+    entries_cnt += entries_curr
+    print(f"\tfetched page {page} with {entries_curr} items - total fetched {entries_cnt}")
 
-    time.sleep(5)
+    sleepy = random.randint(0, 5)
+    time.sleep(sleepy)
+    csrf_counter += 1
 
     return cursor
 
 
-for index, user in enumerate(priorities.A[17:]):
-    print(f"{index + 1}/{len(priorities.A)}. {user}")
-    file_name = f"twitter/users/{user}.json"
-    if os.path.exists(file_name):
-        f = open(file_name)
-        data = json.load(f)
-        user_id = data["data"]["user"]["result"]["rest_id"]
-        followings = data["data"]["user"]["result"]["legacy"]["friends_count"]
-        print(f"\t{followings} followings")
-        page = 1
-        cursor = fetch_following_page(user_id)
-        while not cursor.startswith("0|") and page < 10:
-            page += 1
-            cursor = fetch_following_page(user_id, page, cursor)
-    else:
-        print("\tnot found!")
+users = priorities.A[80:]
+index = int(sys.argv[1])
+
+user = priorities.A[index]
+print(f"{index + 1}/{len(priorities.A)}. {user}")
+file_name = f"twitter/users/{user}.json"
+cursor = None
+if os.path.exists(file_name):
+    f = open(file_name)
+    data = json.load(f)
+    user_id = data["data"]["user"]["result"]["rest_id"]
+    followings = data["data"]["user"]["result"]["legacy"]["friends_count"]
+    print(f"\t{followings} followings")
+    page = 1
+    entries_cnt = 0
+    cursor = fetch_following_page(user, user_id)
+    while not cursor.startswith("0|") and page < 10:
+        page += 1
+        cursor = fetch_following_page(user, user_id, page, cursor)
+
+    if (entries_cnt / followings) < 0.9 and page < 8:
+        # headers['x-csrf-token'] = get_csrf()
+        # headers['cookie'] = headers['cookie'].split("ct0=")[0] + 'ct0=' + headers['x-csrf-token']
+        print("\t\tNot enough!!! Try again")
+        sleepy = random.randint(0, 5)
+        time.sleep(sleepy)
+
+    sleepy = random.randint(0, 5)
+    time.sleep(sleepy)
+else:
+    print("\tnot found!")
