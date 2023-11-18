@@ -9,11 +9,9 @@ import requests
 # from twitter
 import priorities
 
-# from twitter.csrf import get_csrf
-
 csrf_counter = 1
 entries_cnt = 0
-url = 'https://twitter.com/i/api/graphql/8cyc0OKedV_XD62fBjzxUw/Following'
+url = 'https://twitter.com/i/api/graphql/VgitpdpNZ-RUIp5D1Z_D-A/UserTweets'
 
 headers = {
     'authority': 'twitter.com',
@@ -40,7 +38,10 @@ headers = {
 variables = {
     "userId": "35175126",
     "count": 20,
-    "includePromotedContent": False
+    "includePromotedContent": False,
+    "withQuickPromoteEligibilityTweetFields": True,
+    "withVoice": True,
+    "withV2Timeline": True
 }
 
 features = {
@@ -64,11 +65,11 @@ features = {
     "longform_notetweets_rich_text_read_enabled": True,
     "longform_notetweets_inline_media_enabled": True,
     "responsive_web_media_download_video_enabled": False,
-    "responsive_web_enhance_cards_enabled": False,
+    "responsive_web_enhance_cards_enabled": False
 }
 
 
-def fetch_following_page(user, user_id, page=1, cursor=None):
+def fetch_tweets(path, user_id, cursor=None):
     global csrf_counter, entries_cnt
     variables["userId"] = user_id
     if cursor is not None:
@@ -80,17 +81,17 @@ def fetch_following_page(user, user_id, page=1, cursor=None):
     response = requests.get(url, headers=headers, params=payload)
     data = response.json()
 
-    f = open(f"twitter/followers/{user}-P{page}.json", "w")
+    f = open(f"twitter/tweets/{path}.json", "w")
     f.write(json.dumps(data))
     f.flush()
     f.close()
 
-    instructions = data["data"]["user"]["result"]["timeline"]["timeline"]["instructions"]
+    instructions = data["data"]["user"]["result"]["timeline_v2"]["timeline"]["instructions"]
     entries = list(filter(lambda x: x["type"] == "TimelineAddEntries", instructions))[0]["entries"]
     cursor = list(filter(lambda x: "cursor-bottom" in x["entryId"], entries))[0]["content"]["value"]
     entries_curr = len(entries) - 2
     entries_cnt += entries_curr
-    print(f"\tfetched page {page} with {entries_curr} items - total fetched {entries_cnt}")
+    print(f"\tfetched {path} with {entries_curr} items - total fetched {entries_cnt}")
 
     sleepy = random.randint(0, 5)
     time.sleep(sleepy)
@@ -110,16 +111,17 @@ if os.path.exists(file_name):
     f = open(file_name)
     data = json.load(f)
     user_id = data["data"]["user"]["result"]["rest_id"]
-    followings = data["data"]["user"]["result"]["legacy"]["friends_count"]
-    print(f"\t{followings} followings")
+    tweets = data["data"]["user"]["result"]["legacy"]["statuses_count"]
+    print(f"\t{tweets} tweets")
     page = 1
     entries_cnt = 0
-    cursor = fetch_following_page(user, user_id)
-    while not cursor.startswith("0|") and page < 10:
+    path = f"{user}-{page}"
+    cursor = fetch_tweets(path, user_id)
+    while not cursor.startswith("0|") and page < 5:
         page += 1
-        cursor = fetch_following_page(user, user_id, page, cursor)
+        cursor = fetch_tweets(path, user_id, cursor)
 
-    if (entries_cnt / followings) < 0.9 and page < 8:
+    if (entries_cnt / tweets) < 0.9 and page < 4:
         # headers['x-csrf-token'] = get_csrf()
         # headers['cookie'] = headers['cookie'].split("ct0=")[0] + 'ct0=' + headers['x-csrf-token']
         print("\t\tNot enough!!! Try again")
