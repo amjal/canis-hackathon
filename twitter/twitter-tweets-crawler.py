@@ -117,11 +117,12 @@ if os.path.exists(file_name):
     entries_cnt = 0
     path = f"{user}-{page}"
     cursor = fetch_tweets(path, user_id)
-    while not cursor.startswith("0|") and page < 5:
+    while not cursor.startswith("0|") and page < 3:
         page += 1
+        path = f"{user}-{page}"
         cursor = fetch_tweets(path, user_id, cursor)
 
-    if (entries_cnt / tweets) < 0.9 and page < 4:
+    if (entries_cnt / tweets) < 0.9 and page < 2:
         # headers['x-csrf-token'] = get_csrf()
         # headers['cookie'] = headers['cookie'].split("ct0=")[0] + 'ct0=' + headers['x-csrf-token']
         print("\t\tNot enough!!! Try again")
