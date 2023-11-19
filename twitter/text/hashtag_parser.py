@@ -10,14 +10,12 @@ class NoTweetInFile(Exception):
     pass
 
 
-def process_tweets_in_file(file_name):
+def process_hashtags_in_file(file_name):
     f = open(file_name, "r")
     tweets = json.load(f)
     intructions = tweets["data"]["user"]["result"]["timeline_v2"]["timeline"]["instructions"]
+    tweet_entries = list(filter(lambda item: item.get("type") == "TimelineAddEntries", intructions))
 
-    tweet_entries = list(
-        filter(lambda item: item.get("type") == "TimelineAddEntries", intructions)
-    )
     if len(tweet_entries) == 0 or len(tweet_entries[0].get("entries", [])) == 0:
         raise NoTweetInFile()
     else:
@@ -47,43 +45,39 @@ def process_tweets_in_file(file_name):
             else:
                 result = entry["result"]
             user_source = result["core"]["user_results"]["result"]["legacy"]
+            hashtag_sources = result["legacy"]["entities"]["hashtags"]
             tweet_source = result["legacy"]
-            retweet_user_source = tweet_source.get("retweeted_status_result", {}).get("result", {}).get("core", {}).get("user_results", {}).get("result", {}).get("legacy", {})
-            qoute_user_source = entry["result"].get("quoted_status_result", {}).get("result", {}).get("core", {}).get("user_results", {}).get("result", {}).get("legacy", {})
 
-            def enrich_entry():
+            def enrich_entry(hashtag_source):
                 entry_dict = {}
-                from_tweet = ["bookmark_count", "created_at", "favorite_count", "full_text", "id_str", "lang", "possibly_sensitive", "quote_count", "reply_count", "retweet_count", "user_id_str"]
+                from_tweet = ["id_str", "user_id_str"]
                 from_user = ["screen_name"]
-                from_retweet_user = ["screen_name", "location"]
-                from_qoute_user = ["screen_name", "location"]
+                from_hashtag_source = ["text"]
 
                 for field in from_tweet:
                     entry_dict[field] = tweet_source.get(field)
                 for field in from_user:
                     entry_dict[field] = user_source.get(field)
-                for field in from_retweet_user:
-                    entry_dict[f"retweet-{field}"] = retweet_user_source.get(field)
-                for field in from_qoute_user:
-                    entry_dict[f"qoute-{field}"] = qoute_user_source.get(field)
+                for field in from_hashtag_source:
+                    entry_dict[f"hashtag"] = hashtag_source.get(field)
                 return entry_dict
 
-            entry_dict = enrich_entry()
-            entry_dicts.append(entry_dict)
+            entries = list(map(enrich_entry, hashtag_sources))
+            entry_dicts.extend(entries)
         return entry_dicts
 
 
-def process_tweets_in_dir(directory):
-    all_tweets = []
+def process_hashtags_in_dir(directory):
+    all_hashtags = []
     for file in os.listdir(directory):
         file_path = f"{directory}/{file}"
-        tweets = process_tweets_in_file(file_path)
-        all_tweets += tweets
-    return all_tweets
+        hashtags = process_hashtags_in_file(file_path)
+        all_hashtags += hashtags
+    return all_hashtags
     
 
 if __name__ == "__main__":
-    tweets = process_tweets_in_dir("twitter/tweets")
+    tweets = process_hashtags_in_dir("twitter/tweets")
     df = pd.DataFrame(tweets)
-    df.to_csv("tweets.csv", index=None)
+    df.to_csv("hashtags.csv", index=None)
     print(len(df))
