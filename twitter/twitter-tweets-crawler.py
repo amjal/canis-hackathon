@@ -19,7 +19,7 @@ headers = {
     'accept-language': 'en-US,en;q=0.9,fa;q=0.8',
     'authorization': 'Bearer ***REMOVED***',
     'content-type': 'application/json',
-    'cookie': '_ga=GA1.2.880126000.1691779904; lang=en; guest_id=v1%3A169998054129071930; g_state={"i_p":1699987747887,"i_l":1}; _twitter_sess=BAh7CSIKZmxhc2hJQzonQWN0aW9uQ29udHJvbGxlcjo6Rmxhc2g6OkZsYXNo%250ASGFzaHsABjoKQHVzZWR7ADoPY3JlYXRlZF9hdGwrCGudvM6LAToMY3NyZl9p%250AZCIlNzQ2Mzg4ZTM5ODYzOTAxY2I3ZWM2YjRjNTRkYWQ1YTE6B2lkIiUyN2Uy%250ANjE3MzIzZmY0OTYzNDNhNDY5MTMwMDdkYTY5MQ%253D%253D--3cf6a17c9d77e47d3bc3731964da5b89ff7de02d; kdt=UANhrHFuDXkxjTcjAOgq9DIF5QLSJdxD1OElHybR; auth_token=5cd2e6077966875d663293e4101b96fbedb5818b; guest_id_ads=v1%3A169998054129071930; guest_id_marketing=v1%3A169998054129071930; twid=u%3D767620711414456320; night_mode=1; _gid=GA1.2.1404017273.1700157076; external_referer=8e8t2xd8A2w%3D|0|S38otfNfzYt86Dak8Eqj76tqscUAnK6Lq4vYdCl5zxIvK6QAA8vRkA%3D%3D; personalization_id="v1_ZvzweLlSDUIk0+Mbg7mCzw=="; ct0=012b4da978acb746321d790e49f1833c9cfcd23491669aae749aa99b16afa23f4f57d94680adea1e3b30431994975fd0adae6bb42bc874e4adb80d8b1453336f269dbb8c790ef1aca67ccf69fa23bd63',
+    'cookie': '_ga=GA1.2.969896973.1696998755; g_state={"i_l":0}; dnt=1; kdt=wjkhgLelgg2ZvM8BrIgwC6dYROEtrqXRTid31Azn; auth_multi="1506423965765361668:985c89ca780926e7b0216c93bb736dceccf471ba"; auth_token=9f609bebca2a6b78cc9b5817dfccef5747f557e4; guest_id=v1%3A169827441278458399; twid=u%3D317718475; ct0=eaf17f3f562aa2e83ce28c617b63fe115ef9631ae11919961a894ceda0444858d89f5bd74cc4647dac36d94c58a843ae6a62299f4347ba5c3b58c4bf618dc40bddb847af7f5a6d3c5e0c61fffe51a11e; guest_id_ads=v1%3A169827441278458399; guest_id_marketing=v1%3A169827441278458399; lang=en; _gid=GA1.2.2110745042.1700191550; external_referer=padhuUp37zjgzgv1mFWxJ12Ozwit7owX|0|ziZgIoZIK4nlMKUVLq9KcnBFms0d9TqBqrE%2FyjvSFlFJR45yIlYF%2Bw%3D%3D; des_opt_in=Y; personalization_id="v1_ndcezjNfcxEINDZLydTLTw=="',
     'referer': 'https://twitter.com/CGTNOfficial/following',
     'sec-ch-ua': '"Google Chrome";v="119", "Chromium";v="119", "Not?A_Brand";v="24"',
     'sec-ch-ua-mobile': '?0',
@@ -28,8 +28,8 @@ headers = {
     'sec-fetch-mode': 'cors',
     'sec-fetch-site': 'same-origin',
     'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36',
-    'x-client-transaction-id': 'gZgAfoFmEHPWvZX8xnRjarX9eUStbO03b3MOhcOH0xfpkkKWPP9bVMVE9NKoJ6MFOxA+iYCg2m3hpj5MwTu83hmGkap3gA',
-    'x-csrf-token': '012b4da978acb746321d790e49f1833c9cfcd23491669aae749aa99b16afa23f4f57d94680adea1e3b30431994975fd0adae6bb42bc874e4adb80d8b1453336f269dbb8c790ef1aca67ccf69fa23bd63',
+    'x-client-transaction-id': 'KBiScTuWMoMo4aKIzI9zNjmRG9UQ/uS1jRqZFXxDYts/OBNtCH9/yTDjGnLuRbLwxRuZISmQzk8YtUtdv7NusZs+JlNFKQ',
+    'x-csrf-token': 'eaf17f3f562aa2e83ce28c617b63fe115ef9631ae11919961a894ceda0444858d89f5bd74cc4647dac36d94c58a843ae6a62299f4347ba5c3b58c4bf618dc40bddb847af7f5a6d3c5e0c61fffe51a11e',
     'x-twitter-active-user': 'yes',
     'x-twitter-auth-type': 'OAuth2Session',
     'x-twitter-client-language': 'en',
@@ -100,7 +100,7 @@ def fetch_tweets(path, user_id, cursor=None):
     return cursor
 
 
-users = priorities.A[:]
+users = priorities.B[:]
 index = int(sys.argv[1])
 
 user = users[index]
