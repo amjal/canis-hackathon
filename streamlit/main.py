@@ -34,5 +34,5 @@ elif option == "Wiki Network Graph":
 	st.components.v1.html(graph, height=800, width=800, scrolling=True)
 elif option == "Geo Map":
 	geo_agent = WorldMapAgent.Agent("../twitter/users/")
-	locs = geo_agent.generate_pointmap(file="../twitter/users/coords.json")
+	locs = geo_agent.create_map(file="../twitter/users/coords.json")
 	st.map(locs)
