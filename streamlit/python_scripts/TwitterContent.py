@@ -12,6 +12,7 @@ def show_trend(df, key, title, count):
                   title=title)
     fig.update_traces(hovertemplate='<b>%{y}</b>')
     fig.update_layout(xaxis=dict(tickangle=45))
+    fig.update_layout(height=500, width=650)
     return fig
 
 
@@ -45,8 +46,8 @@ class Agent:
             labels={'Hashtags': 'Hashtags', 'Count': 'Count'},
             category_orders={'Hashtags': hashtags_count.head(20).index},
         )
-
         fig.update_layout(xaxis=dict(tickangle=45, tickmode='array'))
+        fig.update_layout(height=500, width=650)
         return fig
 
     def show_hashtags_trend(self):
@@ -80,7 +81,7 @@ class Agent:
             labels={'count': 'Topic Count'},
             title='Distribution of the Top 50 Topics per top 10 Parent Entity',
         )
-        fig.update_layout(height=800)
+        fig.update_layout(height=700, width=1300)
         return fig
 
     def show_most_impactful_topics(self):
@@ -98,4 +99,5 @@ class Agent:
             category_orders={'topic': top_topics_df['topic']},
         )
         fig.update_layout(xaxis=dict(tickangle=45, tickmode='array'))
+        fig.update_layout(height=500)
         return fig

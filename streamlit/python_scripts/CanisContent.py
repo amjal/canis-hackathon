@@ -31,6 +31,7 @@ class Agent:
             title='Distribution of Followers on Different Platforms per Top 10 Parent Entities',
             labels={'Platform': 'Platform', 'Follower Count': 'Follower Count'},
         )
+        fig.update_layout(height=500)
         return fig
 
     def show_distribution_of_parent_entities(self):
@@ -57,6 +58,7 @@ class Agent:
             title='Distribution of Followers on Different Parent Entities',
             labels={'value': 'Followers', 'variable': 'Platform'},
         )
+        fig.update_layout(height=500)
         return fig
 
     def show_distribution_of_records_per_parents(self):
@@ -71,4 +73,5 @@ class Agent:
             title='Top Parent Entities by Record Counts',
             labels={'x': 'Parent Entity', 'y': 'Record Count'},
         )
+        fig.update_layout(height=600)
         return fig

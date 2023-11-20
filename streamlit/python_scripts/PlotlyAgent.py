@@ -69,12 +69,12 @@ class Agent:
             margin=dict(r=0, l=0, b=0, t=0)
         )
 
-        fig.update_layout(width=1200, height=1000)
+        fig.update_layout(height=600)
 
         # Add titles and improve font
         fig.update_layout(
             title={
-                'text': "3D Heat Map of Entity Count",
+                'text': "Parent Entity vs Region of Focus Concentration",
                 'y':0.9,
                 'x':0.5,
                 'xanchor': 'center',

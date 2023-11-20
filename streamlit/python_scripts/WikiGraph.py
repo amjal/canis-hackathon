@@ -16,7 +16,7 @@ class Agent:
         G = nx.from_pandas_edgelist(df, 'title', 'category', create_using=nx.DiGraph())
 
         # Streamlit app
-        st.title("Network Graph Visualization")
+        st.title("Wikipedia Network Graph")
 
         # Create a directed Pyvis network graph
         net = Network(height='500px', width='100%', bgcolor='#222222', font_color='white', directed=True)

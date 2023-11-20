@@ -73,18 +73,22 @@ with tab_home:
     """)
 
 with tab_canis:
+    col1, col2 = st.columns(2)
     fig = canis_agent.show_distribution_of_social_media()
-    st.plotly_chart(fig)
+    col1.plotly_chart(fig)
     fig = canis_agent.show_distribution_of_parent_entities()
-    st.plotly_chart(fig)
-    fig = canis_agent.show_distribution_of_records_per_parents()
-    st.plotly_chart(fig)
+    col2.plotly_chart(fig)
 
     col1, col2 = st.columns(2)
+    fig = canis_agent.show_distribution_of_records_per_parents()
+    col1.plotly_chart(fig)
+    fig = plotly_agent.plot_3d_heat('Entity owner (English)', 'Region of Focus', 10)
+    col2.plotly_chart(fig)
 
+    col1, col2 = st.columns(2)
     user_locs = geo_agent.cities2coords_cached(geo_agent.users2cities(), "../data/loc2coord.json")
     user_locs = geo_agent.generate_pointmap(array=user_locs)
-    col1.write("📍 User Geolocations: A Visual Map of the Community. Each pinpoint reflects a unique user in Canis dataset, demonstrating the expansive reach of our network across the globe.")
+    col1.write("📍 User Geolocations: Each pinpoint reflects a unique user in Canis dataset.")
     col1.map(user_locs)
 
     following_locs = geo_agent.cities2coords_cached(geo_agent.following2cities(), "../data/loc2coord.json")
@@ -92,23 +96,24 @@ with tab_canis:
     col2.write("📍 The same visual map for the followings of Canis users.")
     col2.map(following_locs)
 
-    st.write("Parent Entity vs Region of Focus Concentration")
-    fig = plotly_agent.plot_3d_heat('Entity owner (English)', 'Region of Focus', 10)
-    st.plotly_chart(fig)
 
 with tab_twitter_content:
+    col1, col2 = st.columns(2)
     fig = time_series_agent.show_hashtags_plot()
-    st.plotly_chart(fig)
+    col1.plotly_chart(fig)
+    fig = time_series_agent.show_most_impactful_topics()
+    col2.plotly_chart(fig)
+
+    col1, col2 = st.columns(2)
     fig = time_series_agent.show_hashtags_trend()
-    st.plotly_chart(fig)
+    col1.plotly_chart(fig)
     fig = time_series_agent.show_topics_trend()
-    st.plotly_chart(fig)
+    col2.plotly_chart(fig)
+
     fig = time_series_agent.show_topics_per_parent()
     st.plotly_chart(fig)
-    fig = time_series_agent.show_most_impactful_topics()
-    st.plotly_chart(fig)
 
-    user_input = st.text_input("What do you want?")
+    user_input = st.text_input("Topic Analysis", placeholder="Insert a topic")
     cities = semantic_agent.get_locations(user_input)
     locs = geo_agent.cities2coords_cached(cities, "../data/loc2coord.json")
     r = geo_agent.generate_heatmap_by_country("../data/custom.geo.json", locs)
@@ -131,6 +136,6 @@ with tab_network:
                                                  df['following_parent_entity'].unique())
     fig2 = following_graph_agent.plot_network_graph(user_parent_entity, following_parent_entity_2)
     col2.plotly_chart(fig2, use_container_width=True)
-    st.write("Wiki Network Graph")
+
     graph = networx_agent.plot_network_graph()
     st.components.v1.html(graph, height=800, width=800, scrolling=True)
