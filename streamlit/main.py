@@ -45,7 +45,7 @@ with tab_home:
 	""")
 
     # Our Process
-    st.header("🔬 Our Analytical Process")
+    st.header("🔬 Our Methodology")
     st.markdown("""
 	Our approach was systematic and exploratory:
 	- **Data Gathering**: Initiated by a thorough analysis of CANIS data, then utilized scraping methods to gather more data regarding the state actors
