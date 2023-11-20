@@ -11,8 +11,20 @@ import pydeck as pdk
 
 
 class Agent:
-	def __init__(self, users_dir):
+	def __init__(self, users_dir, following_dir):
 		self.users_dir = users_dir	
+		self.following_dir = following_dir
+
+	def cities2coords_cached(self, cities, coord_file):
+		coords = []
+		with open(coord_file, 'r') as f: 
+			coord_data = json.load(f)
+		for city in cities:
+			try:
+				coords.append(coord_data[city])
+			except:
+				pass
+		return coords
 
 	def cities2coords(self, cities, results=None):
 		coord_list = {}
@@ -36,7 +48,7 @@ class Agent:
 	def users2cities(self):
 		cities = []
 		for filename in os.listdir(self.users_dir):
-			if filename.endswith('.json'):
+			if filename.endswith('.json') and filename != "coords.json":
 				file_path = os.path.join(self.users_dir, filename)
 				with open(file_path, 'r') as file:
 					data = json.load(file)
@@ -47,10 +59,11 @@ class Agent:
 	
 	def following2cities(self):
 		cities = []
-		for filename in os.listdir(self.users_dir):
+		for filename in os.listdir(self.following_dir):
 			if filename.endswith('.json'):
-				file_path = os.path.join(self.users_dir, filename)
+				file_path = os.path.join(self.following_dir, filename)
 				with open(file_path, 'r') as file: 
+					print(file_path)
 					data = json.load(file)
 					try:
 						for entry in data['data']['user']['result']['timeline']['timeline']['instructions']:
@@ -65,16 +78,20 @@ class Agent:
 
 		return cities
 	
-	def coords2country_counts(self, coords_file):
-		with open(coords_file, 'r') as f: 
-			coords = json.load(f)	
-			coords = [tuple(item) for item in coords]
-			gdf = gpd.GeoDataFrame(geometry=[Point(lon, lat) for lat, lon in coords])
-			world = gpd.read_file(gpd.datasets.get_path('naturalearth_lowres'))
-			gdf = gpd.sjoin(gdf, world, how="inner", op='intersects')
-			country_counts = gdf['name'].value_counts()
-			return country_counts
-		return None
+	def coords2country_counts(self, **kwargs):
+		for key, value in kwargs.items():
+			if key == "file":
+				coords_file = value
+				with open(coords_file, 'r') as f: 
+					coords = json.load(f)	
+			elif key == "array":
+			  	coords = value
+		coords = [tuple(item) for item in coords]
+		gdf = gpd.GeoDataFrame(geometry=[Point(lon, lat) for lat, lon in coords])
+		world = gpd.read_file(gpd.datasets.get_path('naturalearth_lowres'))
+		gdf = gpd.sjoin(gdf, world, how="inner", op='intersects')
+		country_counts = gdf['name'].value_counts()
+		return country_counts
 
 
 	def generate_pointmap(self, **kwargs):
@@ -111,9 +128,10 @@ class Agent:
 		r = pdk.Deck(layers=[layer], initial_view_state=view_state)
 		return r
 	
-	def generate_heatmap_by_country(self, geojson_filename, country_counts):
+	def generate_heatmap_by_country(self, geojson_filename, locs):
 		with open(geojson_filename, 'r') as f: 
 			countries_geojson = json.load(f)
+		country_counts = self.coords2country_counts(array=locs)
 		country_counts = country_counts.reset_index()
 		country_counts.columns = ['name', 'count']
 		min_value = country_counts['count'].min()
