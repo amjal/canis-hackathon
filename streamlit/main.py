@@ -4,6 +4,7 @@ import PlotlyAgent
 import WorldMapAgent
 import WikiGraph
 import streamlit as st
+from python_scripts import TwitterContent
 import pandas as pd
 import plotly.graph_objects as go
 
@@ -14,13 +15,25 @@ st.title("Streamlit App with Plotly Plot")
 st.sidebar.title("Navigation")
 option = st.sidebar.selectbox(
 	"Choose a page:",
-	("Home", "Plotly Plot", "Wiki Network Graph", "Geo Map")
+	("Home", "Twitter Content Analysis", "Plotly Plot", "Wiki Network Graph", "Geo Map")
 )
 
 
 # Page content based on navigation
 if option == "Home":
 	st.write("Welcome to the Home Page")
+elif option == "Twitter Content Analysis":
+	time_series_agent = TwitterContent.Agent()
+	fig = time_series_agent.show_hashtags_plot()
+	st.plotly_chart(fig)
+	fig = time_series_agent.show_hashtags_trend()
+	st.plotly_chart(fig)
+	fig = time_series_agent.show_topics_trend()
+	st.plotly_chart(fig)
+	fig = time_series_agent.show_topics_per_parent()
+	st.plotly_chart(fig)
+	fig = time_series_agent.show_most_impactful_topics()
+	st.plotly_chart(fig)
 elif option == "Plotly Plot":
 	st.write("Plotly Plot")
 	plotly_agent = PlotlyAgent.Agent()
