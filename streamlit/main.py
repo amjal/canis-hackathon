@@ -2,7 +2,6 @@ import sys
 
 import pandas as pd
 
-sys.path.append('../python_scripts')
 import streamlit as st
 from python_scripts import TwitterContent, CanisContent, FollowGraph, PlotlyAgent, WorldMapAgent, WikiGraph
 
@@ -35,6 +34,10 @@ elif option == "Twitter Content Analysis":
 elif option == "Canis Data Analysis":
     canis_agent = CanisContent.Agent()
     fig = canis_agent.show_distribution_of_social_media()
+    st.plotly_chart(fig)
+    fig = canis_agent.show_distribution_of_parent_entities()
+    st.plotly_chart(fig)
+    fig = canis_agent.show_distribution_of_records_per_parents()
     st.plotly_chart(fig)
 elif option == "Plotly Plot":
     st.write("Plotly Plot")
