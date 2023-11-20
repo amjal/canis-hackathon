@@ -100,6 +100,16 @@ with tab_canis:
     col2.map(following_locs)
 
 with tab_twitter_content:
+    col1, col2, col3, col4 = st.columns(4)
+    with col1:
+        st.metric("🐦 Tweets", "28K", "")
+    with col2:
+        st.metric("#️⃣ Hashtags", "23K", "")
+    with col3:
+        st.metric("👥 Users", "29K", "")
+    with col4:
+        st.metric("📚 Topics", "348", "")
+
     col1, col2 = st.columns(2)
     fig = time_series_agent.show_hashtags_plot()
     col1.plotly_chart(fig)
