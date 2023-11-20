@@ -126,7 +126,9 @@ with tab_twitter_content:
     fig = time_series_agent.show_topics_per_parent()
     st.plotly_chart(fig)
 
-    user_input = st.text_input("Topic Analysis", placeholder="Insert a topic")
+    st.header("Topic Analysis")
+
+    user_input = st.text_input("", placeholder="Insert a topic")
     col1, col2 = st.columns(2)
     cities = semantic_agent.get_locations(user_input)
     locs = geo_agent.cities2coords_cached(cities, "../data/loc2coord.json")
@@ -141,13 +143,15 @@ with tab_twitter_content:
     plt.axis("off")
     col2.pyplot(fig)
 
+    st.header("Sentiment Score Comparison")
+
+    col1, col2 = st.columns(2)
     topic1 = col1.text_input("Topic 1", placeholder="Insert a topic")
     topic2 = col2.text_input("Topic 2", placeholder="Insert a topic")
 
     sentiments1 = semantic_agent.get_sentiments(topic1)
     sentiments2 = semantic_agent.get_sentiments(topic2)
-    # import code
-    # code.interact(local=locals())
+
     labels = sentiments1['label']
     trace1 = go.Bar(x=labels, y=sentiments1['score'], name=topic1)
     trace2 = go.Bar(x=labels, y=sentiments2['score'], name=topic2)
@@ -155,7 +159,7 @@ with tab_twitter_content:
     data = [trace1, trace2]
 
     layout = go.Layout(
-        title='Sentiment Score Comparison',
+        title='',
         barmode='group'
     )
 
