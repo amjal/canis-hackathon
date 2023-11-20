@@ -36,3 +36,7 @@ elif option == "Geo Map":
 	geo_agent = WorldMapAgent.Agent("../twitter/users/")
 	locs = geo_agent.generate_pointmap(file="../twitter/users/coords.json")
 	st.map(locs)
+	country_counts = geo_agent.coords2country_counts("../twitter/users/coords.json")
+#r = geo_agent.generate_heatmap(locs)
+	r = geo_agent.generate_heatmap_by_country("../data/custom.geo.json", country_counts)
+	st.pydeck_chart(r)
