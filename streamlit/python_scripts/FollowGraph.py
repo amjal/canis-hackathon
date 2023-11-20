@@ -51,8 +51,9 @@ class Agent:
 
         node_in_degree = dict(G.in_degree())
         max_in_degree = max(node_in_degree.values())
-        node_size = [5 + 10 * (node_in_degree[node] / max_in_degree) for node in
-                     G.nodes()]  # Scale node sizes based on in-degree
+        node_size = [10 + 10 * (node_in_degree[node] / max_in_degree) for node in
+                     G.nodes()]
+        
 
         edge_x, edge_y = [], []
         for edge in G.edges():
@@ -61,7 +62,7 @@ class Agent:
             edge_x.extend([x0, x1, None])
             edge_y.extend([y0, y1, None])
 
-        edge_trace = go.Scatter(x=edge_x, y=edge_y, line=dict(width=0.1, color='#888'), mode='lines', hoverinfo='none')
+        edge_trace = go.Scatter(x=edge_x, y=edge_y, line=dict(width=0.2, color='#888'), mode='lines', hoverinfo='none')
 
         node_x, node_y, node_color, node_text = [], [], [], []
         for node in G.nodes():
@@ -83,7 +84,7 @@ class Agent:
             hoverinfo='text',
             marker=dict(
                 showscale=False,
-                size=node_size * 10,
+                size=node_size,
                 color=node_color,
                 line_width=2))
 

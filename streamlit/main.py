@@ -6,6 +6,7 @@ import streamlit as st
 from python_scripts import TwitterContent, CanisContent, FollowGraph, PlotlyAgent, WorldMapAgent, WikiGraph
 
 # Streamlit app layout
+st.set_page_config(layout="wide")
 st.title("Streamlit App with Plotly Plot")
 
 # Sidebar navigation
@@ -63,6 +64,10 @@ elif option == "Following Graph":
     st.write("Following Graph")
     df = pd.read_csv('../3d-network-visualization/clean_csvs/network.csv')
     user_parent_entity = st.multiselect('select user parent entity', df['user_parent_entity'].unique())
-    following_parent_entity = st.multiselect('Select following parent entity', df['following_parent_entity'].unique())
+    col1, col2 = st.columns(2)
+    following_parent_entity = col1.multiselect('Select following parent entity', df['following_parent_entity'].unique())
     fig = agent.plot_network_graph(user_parent_entity, following_parent_entity)
-    st.plotly_chart(fig, use_container_width=True)
+    col1.plotly_chart(fig, use_container_width=True)
+    following_parent_entity_2 = col2.multiselect('Select following parent entity to compare', df['following_parent_entity'].unique())
+    fig2 = agent.plot_network_graph(user_parent_entity, following_parent_entity_2)
+    col2.plotly_chart(fig2, use_container_width=True)
