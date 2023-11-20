@@ -1,10 +1,12 @@
 from bertopic import BERTopic
+from transformers import pipeline
 import pandas as pd
 import re
 import emoji
 
 topic_model = BERTopic.load("../twitter/text/topic.pkl", embedding_model="all-mpnet-base-v2")
 df = pd.read_csv("../twitter/text/tweets_with_topic_loc.csv")
+classifier = pipeline("text-classification", model="j-hartmann/emotion-english-distilroberta-base", return_all_scores=True)
 
 def clean_tweet_df(row):
     tweet = row["full_text"]
@@ -38,4 +40,11 @@ class Agent:
 		topic_names = [topic_model.get_topic_info(t)["Name"] for t in similar_topics]
 		topic_names = [t.values[0] for t in topic_names]
 		return df[df["topic"].isin(topic_names)]["cleaned_full_text"]
-
+	
+	def get_sentiments(self, text):
+		tweets = self.get_clean_tweets(text).values
+		scores = classifier(list(tweets))
+		dfs = pd.concat([pd.DataFrame(s) for s in scores], ignore_index=True, sort=False)
+		scores = dfs.groupby(['label']).sum().reset_index()
+		scores["score"] = scores["score"] / len(tweets)
+		return scores

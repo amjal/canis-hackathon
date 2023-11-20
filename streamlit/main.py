@@ -7,6 +7,7 @@ from python_scripts import TwitterContent, CanisContent, FollowGraph, PlotlyAgen
 
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
+import plotly.graph_objects as go
 
 # Streamlit app layout
 st.set_page_config(layout="wide")
@@ -139,12 +140,27 @@ with tab_twitter_content:
     ax.imshow(wordcloud)
     plt.axis("off")
     col2.pyplot(fig)
-    '''
-    plt.figure()
-    plt.imshow(wordcloud, interpolation="bilinear")
-    plt.axis("off")
-    plt.show()
-    '''
+
+    topic1 = col1.text_input("Topic 1", placeholder="Insert a topic")
+    topic2 = col2.text_input("Topic 2", placeholder="Insert a topic")
+
+    sentiments1 = semantic_agent.get_sentiments(topic1)
+    sentiments2 = semantic_agent.get_sentiments(topic2)
+    # import code
+    # code.interact(local=locals())
+    labels = sentiments1['label']
+    trace1 = go.Bar(x=labels, y=sentiments1['score'], name=topic1)
+    trace2 = go.Bar(x=labels, y=sentiments2['score'], name=topic2)
+
+    data = [trace1, trace2]
+
+    layout = go.Layout(
+        title='Sentiment Score Comparison',
+        barmode='group'
+    )
+
+    fig = go.Figure(data=data, layout=layout)
+    st.plotly_chart(fig)
 
 with tab_network:
     st.write("Following Graph")
