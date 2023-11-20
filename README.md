@@ -1,4 +1,4 @@
-# 🔍 CANIS DataViz Hackathon Project by Team Insightful Four")
+# 🔍 CANIS DataViz Hackathon Project by Team Insightful Four
 Welcome to our project dashboard! We're Team Insightful Four, comprised of Alireza, Morteza, Amir, and Mohammad Reza, bringing together our diverse skills to tackle the CANIS Data Visualization Challenge. 🚀
 
 To access our demo video, please visit [this link](https://youtu.be/Fz6_80V-7c0). 
