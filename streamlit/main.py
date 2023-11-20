@@ -12,6 +12,13 @@ st.title("📊 CANIS DataViz Challenge | Hackathon 2023")
 tab_home, tab_canis, tab_twitter_content, tab_network = st.tabs(
     ["🏠 Home", "📊 Canis Data Analysis", "🐦 Twitter Content Analysis", "🌐 Following Graph"]
 )
+canis_agent = CanisContent.Agent()
+geo_agent = WorldMapAgent.Agent("../twitter/users/", "../twitter/followers/")
+time_series_agent = TwitterContent.Agent()
+following_graph_agent = FollowGraph.Agent()
+semantic_agent = semantic.Agent()
+plotly_agent = PlotlyAgent.Agent()
+networx_agent = WikiGraph.Agent()
 
 # Page content based on navigation
 with tab_home:
@@ -66,7 +73,6 @@ with tab_home:
     """)
 
 with tab_canis:
-    canis_agent = CanisContent.Agent()
     fig = canis_agent.show_distribution_of_social_media()
     st.plotly_chart(fig)
     fig = canis_agent.show_distribution_of_parent_entities()
@@ -74,8 +80,6 @@ with tab_canis:
     fig = canis_agent.show_distribution_of_records_per_parents()
     st.plotly_chart(fig)
 
-    geo_agent = WorldMapAgent.Agent("../twitter/users/", "../twitter/followers/")
-    semantic_agent = semantic.Agent()
     user_input = st.text_input("What do you want?")
     cities = semantic_agent.get_locations(user_input)
     locs = geo_agent.cities2coords_cached(cities, "../data/loc2coord.json")
@@ -89,12 +93,10 @@ with tab_canis:
     st.map(following_locs)
 
     st.write("Plotly Plot")
-    plotly_agent = PlotlyAgent.Agent()
     fig = plotly_agent.plot_3d_heat('Entity owner (English)', 'Region of Focus', 10)
     st.plotly_chart(fig)
 
 with tab_twitter_content:
-    time_series_agent = TwitterContent.Agent()
     fig = time_series_agent.show_hashtags_plot()
     st.plotly_chart(fig)
     fig = time_series_agent.show_hashtags_trend()
@@ -107,8 +109,6 @@ with tab_twitter_content:
     st.plotly_chart(fig)
 
 with tab_network:
-    agent = FollowGraph.Agent()
-    semantic_agent = semantic.Agent()
     st.write("Following Graph")
     df = pd.read_csv('../3d-network-visualization/clean_csvs/network.csv')
     text = st.text_input('Enter a text to analyse', 'all')
@@ -119,12 +119,12 @@ with tab_network:
     user_parent_entity = st.multiselect('select user parent entity', df['user_parent_entity'].unique())
     col1, col2 = st.columns(2)
     following_parent_entity = col1.multiselect('Select following parent entity', df['following_parent_entity'].unique())
-    fig = agent.plot_network_graph(user_parent_entity, following_parent_entity, users)
+    fig = following_graph_agent.plot_network_graph(user_parent_entity, following_parent_entity, users)
     col1.plotly_chart(fig, use_container_width=True)
-    following_parent_entity_2 = col2.multiselect('Select following parent entity to compare', df['following_parent_entity'].unique())
-    fig2 = agent.plot_network_graph(user_parent_entity, following_parent_entity_2)
+    following_parent_entity_2 = col2.multiselect('Select following parent entity to compare',
+                                                 df['following_parent_entity'].unique())
+    fig2 = following_graph_agent.plot_network_graph(user_parent_entity, following_parent_entity_2)
     col2.plotly_chart(fig2, use_container_width=True)
     st.write("Wiki Network Graph")
-    networx_agent = WikiGraph.Agent()
     graph = networx_agent.plot_network_graph()
     st.components.v1.html(graph, height=800, width=800, scrolling=True)
