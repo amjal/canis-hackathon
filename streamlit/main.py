@@ -7,6 +7,7 @@ import streamlit as st
 from python_scripts import TwitterContent
 import pandas as pd
 import plotly.graph_objects as go
+import FollowGraph
 
 # Streamlit app layout
 st.title("Streamlit App with Plotly Plot")
@@ -15,7 +16,7 @@ st.title("Streamlit App with Plotly Plot")
 st.sidebar.title("Navigation")
 option = st.sidebar.selectbox(
 	"Choose a page:",
-	("Home", "Twitter Content Analysis", "Plotly Plot", "Wiki Network Graph", "Geo Map")
+	("Home", "Twitter Content Analysis", "Plotly Plot", "Wiki Network Graph", "Geo Map", "Following Graph")
 )
 
 
@@ -53,3 +54,14 @@ elif option == "Geo Map":
 #r = geo_agent.generate_heatmap(locs)
 	r = geo_agent.generate_heatmap_by_country("../data/custom.geo.json", country_counts)
 	st.pydeck_chart(r)
+elif option == "Following Graph":
+	agent = FollowGraph.Agent()
+	st.write("Following Graph")
+	df = pd.read_csv('../3d-network-visualization/clean_csvs/network.csv')
+	user_parent_entity = st.multiselect('select user parent entity', df['user_parent_entity'].unique())
+	following_parent_entity = st.multiselect('Select following parent entity', df['following_parent_entity'].unique())
+	fig = agent.plot_network_graph(user_parent_entity, following_parent_entity)
+	st.plotly_chart(fig, use_container_width=True)
+
+
+	
