@@ -33,10 +33,12 @@ class Agent:
 
         return random.choice(pleasing_colors)
 
-    def plot_network_graph(self, user_parent_entity, following_parent_entity):
+    def plot_network_graph(self, user_parent_entity, following_parent_entity, users=None):
         df = pd.read_csv('../3d-network-visualization/clean_csvs/network.csv')
         df = df[df['user_parent_entity'].isin(user_parent_entity) & df['following_parent_entity'].isin(
             following_parent_entity)]
+        if users is not None:
+            df = df[(df['user'].isin(users)) & (df['following'].isin(users))]
 
         if df.shape[0] == 0:
             return go.Figure()

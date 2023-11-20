@@ -3,7 +3,7 @@ import sys
 import pandas as pd
 
 import streamlit as st
-from python_scripts import TwitterContent, CanisContent, FollowGraph, PlotlyAgent, WorldMapAgent, WikiGraph
+from python_scripts import TwitterContent, CanisContent, FollowGraph, PlotlyAgent, WorldMapAgent, WikiGraph, semantic
 
 # Streamlit app layout
 st.set_page_config(layout="wide")
@@ -103,12 +103,18 @@ with tab_twitter_content:
 
 with tab_network:
     agent = FollowGraph.Agent()
+    semantic_agent = semantic.Agent()
     st.write("Following Graph")
     df = pd.read_csv('../3d-network-visualization/clean_csvs/network.csv')
+    text = st.text_input('Enter a text to analyse', 'all')
+    if text == 'all':
+        users = None
+    else:
+        users = semantic_agent.get_users(text)
     user_parent_entity = st.multiselect('select user parent entity', df['user_parent_entity'].unique())
     col1, col2 = st.columns(2)
     following_parent_entity = col1.multiselect('Select following parent entity', df['following_parent_entity'].unique())
-    fig = agent.plot_network_graph(user_parent_entity, following_parent_entity)
+    fig = agent.plot_network_graph(user_parent_entity, following_parent_entity, users)
     col1.plotly_chart(fig, use_container_width=True)
     following_parent_entity_2 = col2.multiselect('Select following parent entity to compare', df['following_parent_entity'].unique())
     fig2 = agent.plot_network_graph(user_parent_entity, following_parent_entity_2)
