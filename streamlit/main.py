@@ -13,7 +13,7 @@ st.set_page_config(layout="wide")
 st.title("📊 CANIS DataViz Challenge | Hackathon 2023")
 
 tab_home, tab_canis, tab_twitter_content, tab_network = st.tabs(
-	["🏠 Home", "📊 Canis Data Analysis", "🐦 Twitter Content Analysis", "🌐 Following Graph"]
+    ["🏠 Home", "📊 Canis Data Analysis", "🐦 Twitter Content Analysis", "🌐 Following Graph"]
 )
 canis_agent = CanisContent.Agent()
 geo_agent = WorldMapAgent.Agent("../twitter/users/", "../twitter/followers/")
@@ -25,27 +25,27 @@ networx_agent = WikiGraph.Agent()
 
 # Page content based on navigation
 with tab_home:
-	# Homepage title
-	st.title("🔍 CANIS DataViz Hackathon Project by Team Insightful Four")
+    # Homepage title
+    st.title("🔍 CANIS DataViz Hackathon Project by Team Insightful Four")
 
-	# Brief Introduction
-	st.markdown("""
+    # Brief Introduction
+    st.markdown("""
 	Welcome to our project dashboard! We're Team Insightful Four, comprised of Alireza, Morteza, Amir, and Mohammad Reza, 
 	bringing together our diverse skills to tackle the CANIS Data Visualization Challenge. 🚀
 	""")
 
-	# About the Challenge
-	st.header("🎯 About Our Challenge")
-	st.markdown("""
+    # About the Challenge
+    st.header("🎯 About Our Challenge")
+    st.markdown("""
 	Diving deep into data, our mission was to transform a raw dataset into a captivating visual narrative. 
 	We began by dissecting the CANIS data, seeking patterns and stories hidden within. Our journey took a 
 	twist as we embarked on scraping Twitter, gleaning insights from the web of interactions and content 
 	created by the users provided to us.
 	""")
 
-	# Our Process
-	st.header("🔬 Our Analytical Process")
-	st.markdown("""
+    # Our Process
+    st.header("🔬 Our Analytical Process")
+    st.markdown("""
 	Our approach was systematic and exploratory:
 	- **Data Analysis**: Initiated with a thorough analysis of CANIS data.
 	- **Twitter Scraping**: Progressed to scraping Twitter for user profiles, their networks, and recent tweets.
@@ -53,25 +53,25 @@ with tab_home:
 	- **Visualization**: Transformed our discoveries into an array of engaging, insightful visuals.
 	""")
 
-	# Submission Requirements
-	st.header("📑 Submission Highlights")
-	st.markdown("""
+    # Submission Requirements
+    st.header("📑 Submission Highlights")
+    st.markdown("""
 	In our submission, you'll find:
 	- **Structured Presentation**: A cohesive narrative of our data journey, from raw figures to polished graphs.
 	- **Methodology Summary**: Insight into the analytical tools and techniques we employed.
 	- **Codebase**: Access to the code that powered our analysis, showcasing our technical acumen.
 	""")
 
-	# Final Thoughts
-	st.header("💡 Parting Thoughts")
-	st.markdown("""
+    # Final Thoughts
+    st.header("💡 Parting Thoughts")
+    st.markdown("""
 	Whether you're a data enthusiast, a visualization whiz, or just curious about the power of data, we invite you to 
 	explore our findings. Together, let's celebrate the fusion of data, creativity, and technology!
 	""")
 
-	# Footer
-	st.markdown("---")
-	st.markdown("""
+    # Footer
+    st.markdown("---")
+    st.markdown("""
 	Made with ❤️ by Team Insightful Four: Alireza, Morteza, Amir, and Mohammad Reza.
 	""")
 
@@ -98,7 +98,6 @@ with tab_canis:
     following_locs = geo_agent.generate_pointmap(array=following_locs)
     col2.write("📍 The same visual map for the followings of Canis users.")
     col2.map(following_locs)
-
 
 with tab_twitter_content:
     col1, col2 = st.columns(2)
@@ -136,7 +135,6 @@ with tab_twitter_content:
     plt.axis("off")
     plt.show()
     '''
-
 
 with tab_network:
     st.write("Following Graph")
