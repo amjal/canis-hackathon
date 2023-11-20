@@ -3,11 +3,8 @@ import sys
 import pandas as pd
 
 sys.path.append('../python_scripts')
-import PlotlyAgent
-import WorldMapAgent
-import WikiGraph
 import streamlit as st
-from python_scripts import TwitterContent, CanisContent, FollowGraph
+from python_scripts import TwitterContent, CanisContent, FollowGraph, PlotlyAgent, WorldMapAgent, WikiGraph
 
 # Streamlit app layout
 st.title("Streamlit App with Plotly Plot")
