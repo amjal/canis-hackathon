@@ -59,15 +59,17 @@ with tab_home:
     st.markdown("""
 	In our submission, you'll find:
 	- **Structured Presentation**: A cohesive narrative of our data journey, from raw figures to polished graphs.
-	- **Methodology Summary**: Insight into the analytical tools and techniques we employed.
 	- **Codebase**: Access to the code that powered our analysis, showcasing our technical acumen.
 	""")
 
     # Final Thoughts
-    st.header("💡 Parting Thoughts")
+    st.header("💡 Acknowledgements")
     st.markdown("""
-	Whether you're a data enthusiast, a visualization whiz, or just curious about the power of data, we invite you to 
-	explore our findings. Together, let's celebrate the fusion of data, creativity, and technology!
+	We used state-of-the-art language processing models for semantic search [^1], topic modelling [^2] and semantic classification [^3]. We created our web app using **_Streamlit_** and generated our visuals using a vast array of open-source tools such as **_Plotly_**, **_Matplotlib_**, **_Mapbox_**, **_NetworkX_**.
+
+[^1]: Hanley, H.W., Kumar, D. and Durumeric, Z., 2023, June. Happenstance: Utilizing Semantic Search to Track Russian State Media Narratives about the Russo-Ukrainian War On Reddit. In Proceedings of the international AAAI conference on web and social media (Vol. 17, pp. 327-338).	
+[^2]: Grootendorst, M., 2022. BERTopic: Neural topic modeling with a class-based TF-IDF procedure. arXiv preprint arXiv:2203.05794.
+[^3]: Sanh, V., Debut, L., Chaumond, J. and Wolf, T., 2019. DistilBERT, a distilled version of BERT: smaller, faster, cheaper and lighter. arXiv preprint arXiv:1910.01108.
 	""")
 
     # Footer
