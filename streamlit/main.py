@@ -14,7 +14,7 @@ st.set_page_config(layout="wide")
 st.title("📊 CANIS DataViz Challenge | Hackathon 2023")
 
 tab_home, tab_canis, tab_twitter_content, tab_network = st.tabs(
-    ["🏠 Home", "📊 Canis Data Analysis", "🐦 Twitter Content Analysis", "🌐 Following Graph"]
+    ["🏠 Home", "📊 Preliminary Data Analysis", "🐦 Twitter Content Analysis", "🌐 Following Graph"]
 )
 canis_agent = CanisContent.Agent()
 geo_agent = WorldMapAgent.Agent("../twitter/users/", "../twitter/followers/")
@@ -38,7 +38,7 @@ with tab_home:
     # About the Challenge
     st.header("🎯 About Our Challenge")
     st.markdown("""
-	Diving deep into data, our mission was to transform a raw dataset into a captivating visual narrative. 
+	Diving deep into the data, our mission was to transform a raw dataset into a captivating visual narrative. 
 	We began by dissecting the CANIS data, seeking patterns and stories hidden within. Our journey took a 
 	twist as we embarked on scraping Twitter, gleaning insights from the web of interactions and content 
 	created by the users provided to us.
@@ -48,9 +48,9 @@ with tab_home:
     st.header("🔬 Our Analytical Process")
     st.markdown("""
 	Our approach was systematic and exploratory:
-	- **Data Analysis**: Initiated with a thorough analysis of CANIS data.
-	- **Twitter Scraping**: Progressed to scraping Twitter for user profiles, their networks, and recent tweets.
-	- **Insight Extraction**: Delved into the data to uncover trends, anomalies, and noteworthy findings.
+	- **Data Gathering**: Initiated by a thorough analysis of CANIS data, then utilized scraping methods to gather more data regarding the state actors
+	- **Data Cleaning**: Filtered and cleaned data to gain higher quality results using our ML models. 
+	- **Data Analysis**: Delved into the data to uncover trends, anomalies, and noteworthy findings.
 	- **Visualization**: Transformed our discoveries into an array of engaging, insightful visuals.
 	""")
 
