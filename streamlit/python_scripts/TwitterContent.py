@@ -29,7 +29,7 @@ class Agent:
                 result['reply_count'] * weights['reply_count'] +
                 result['retweet_count'] * weights['retweet_count']
         )
-        self.result = result[result['topic'] != '-1_itiswhatitis_texte_complet_sacked']
+        self.result = result[result['topic'] != '-1_𝑪𝒉𝒓𝒊𝒔𝒕𝒎𝒂𝒔_mummy_invigorating_𝒂𝒏𝒅']
 
     def show_hashtags_plot(self):
         hashtags_count = self.hashtags_df['hashtag'].value_counts()

@@ -33,7 +33,7 @@ class Agent:
 				y=[grouped_data[y_axis_column][i], grouped_data[y_axis_column][i]],
 				z=[0, grouped_data['Entity Count'][i]],
 				mode='lines',
-				line=dict(color='gray', width=4, dash='dash'),  # Increased line width
+				line=dict(color='white', width=20, dash='dash'),  # Increased line width
 				showlegend=False
 			))
 
