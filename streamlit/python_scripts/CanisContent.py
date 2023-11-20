@@ -43,8 +43,11 @@ class Agent:
             'TikTok Subscriber #'
         ]
         top_entities = self.canis_df['Parent entity (English)'].value_counts().nlargest(10).index
-        filtered_df = self.canis_df[self.canis_df['Parent entity (English)'].isin(top_entities)]
-        melted_df = pd.melt(filtered_df, id_vars=['Parent entity (English)'], value_vars=platform_columns)
+        top_entities_df = self.canis_df.copy(deep=True)
+        top_entities_df.loc[
+            ~top_entities_df['Parent entity (English)'].isin(top_entities), 'Parent entity (English)'
+        ] = 'Other'
+        melted_df = pd.melt(top_entities_df, id_vars=['Parent entity (English)'], value_vars=platform_columns)
 
         fig = px.bar(
             melted_df,
