@@ -1,5 +1,7 @@
 import requests
 
+import setting
+
 url = 'https://twitter.com/jannatkhah_ir/following'
 
 headers = {
@@ -21,7 +23,7 @@ headers = {
 
 
 def get_csrf():
-    response = requests.get(url, headers=headers)
+    response = requests.get(url, headers=setting.headers)
     response_headers = response.headers
     for header, value in response_headers.items():
         if header == "set-cookie":

@@ -50,8 +50,8 @@ def process_hashtags_in_file(file_name):
 
             def enrich_entry(hashtag_source):
                 entry_dict = {}
-                from_tweet = ["id_str", "user_id_str"]
-                from_user = ["screen_name"]
+                from_tweet = ["id_str", "user_id_str", "created_at"]
+                from_user = ["screen_name", "location"]
                 from_hashtag_source = ["text"]
 
                 for field in from_tweet:
